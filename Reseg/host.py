@@ -4,7 +4,7 @@ class HostObject:
         self.hosts = []
         self.total = 1
 
-    def get_ip():
+    def get_ip(self):
         return self.ip
     
     def add_egress(self, egress_ip, egress_port):
@@ -35,6 +35,7 @@ class HostObject:
 
     def get_host_traffic(self):
         host_values = {}
+        packets = 0
         for host in self.hosts:
             for packet_vals in host["egress"]:
                 packets+=packet_vals["packets"]

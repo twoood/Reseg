@@ -1,17 +1,22 @@
 import sys
+import logging
 from scapy.all import *
+import PySimpleGUI as sg 
 from host import HostObject
 import pdb
 
-pack = rdpcap(sys.argv[1])
+analysis_info = {}
 
 
-unique_hosts = []
-host_information = {}
+## add pysimplegui
+## add subnets
+## add threshold
 
-
+logging.basicConfig(level=logging.WARNING)
 
 def identify_hosts(packets):
+    unique_hosts = []
+    host_information = {}
     for packet in packets:
         # pdb.set_trace()
         try:
@@ -28,26 +33,52 @@ def identify_hosts(packets):
                     elif packet['IP'].proto == 1:
                         port = "icmp"
                     else:
-                        print("Unknown protocol")
-                    host_information[packet['IP'].src].add_egress(packet['IP'].src, port)
+                        logging.warning("Unknown protocol")
+                    host_information[packet['IP'].src].add_egress(packet['IP'].dst, port)
 
             elif packet.type == 34525:
-                print("IPv6 packet")
+                logging.debug("IPv6 packet")
             elif packet.type == 2054:
-                print("ARP packet")
+                logging.debug("ARP packet")
             else:
-                print(str(packet.type) + " not recognized")
+                logging.warning(str(packet.type) + " not recognized")
         except Exception as e:
             # pdb.set_trace()
             print("Exception " + str(e))
             
-
+    host_dict = {}
     for host_ip, host_info in host_information.items():
-        print(str(host_ip) + " : " +str(host_info.get_total()))
-
-
-
-identify_hosts(pack)
-
-
+        host_dict[host_ip] = host_info.get_host_traffic()
     
+    return host_dict
+
+def main():
+    layout = [      
+            [sg.Text('Please enter path of PCAP file and any subnets')],      
+            [sg.Text('PCAP', size=(15, 1)), sg.InputText('./testv1.pcapng')],      
+            [sg.Text('subnets', size=(15, 1)), sg.InputText('10.10.10.x, 10.10.20.x')],            
+            [sg.Submit(), sg.Cancel()]      
+            ]      
+
+    window = sg.Window('Traffic Analysis').Layout(layout)         
+    button, values = window.Read()
+    window.close() 
+    logging.debug(button, values[0], values[1])
+
+    pack = rdpcap(values[0])
+    if values[1] != '10.10.10.x, 10.10.20.x':
+        print("Not currently implemented")
+
+    analysis_info = identify_hosts(pack)
+
+    for name, h_object in analysis_info.items():
+        print(str(name))
+        for ip, packet in h_object.items():
+            print(str(ip) + " : " + str(packet))
+        print('\n')  
+
+
+if __name__ == "__main__":
+    main()
+
+ 
