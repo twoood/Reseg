@@ -57,11 +57,14 @@ def threshold_enforce(traffic_dict, ip_totals, threshold):
 
     for name, h_object in traffic_dict.items():
         for ip, packet in h_object.items():
-            if (packet/ip_totals[name]) > (threshold/100):
+            if (packet/ip_totals[name]) > (int(threshold)/100):
                 suggested_seg[name] = ip  
 
-    for host, client in suggested_seg.items():
-        print(str(host)+ " suggested to segement with " + str(client))
+    
+    # for host, client in suggested_seg.items():
+    #     print(str(host)+ " suggested to resegement with " + str(client))
+
+    return suggested_seg
 
 
 
@@ -100,8 +103,12 @@ def main():
             total+=packet
         ip_totals[name]=total
         print('Total Traffic :  ' + str(total) + '\n')  
-
-    threshold_enforce(analysis_info, ip_totals, threshold)
+    suggestions={}
+    suggestions=threshold_enforce(analysis_info, ip_totals, threshold)
+    suggest="With a threshold of " + str(threshold) + "%\n\n"
+    for host, client in suggestions.items():
+       suggest+=(str(host)+ " suggested to resegement with " + str(client)+ "\n")
+    sg.Popup(suggest,title="Results")
 
 
 if __name__ == "__main__":
