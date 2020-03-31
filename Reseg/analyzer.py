@@ -71,8 +71,8 @@ def threshold_enforce(traffic_dict, ip_totals, threshold):
 
 def main():
     layout = [      
-            [sg.Text('Please enter path of PCAP file and any subnets')],      
-            [sg.Text('PCAP', size=(15, 1)), sg.InputText('./testv1.pcapng')],   
+            [sg.Text('Please enter path of PCAP and any subnets')],      
+            [sg.Text('PCAP', size=(15, 1)), sg.InputText('./pcap_files')],   
             [sg.Text('Threshold', size=(15, 1)), sg.InputText('70%(default)')],    
             [sg.Text('Subnets', size=(15, 1)), sg.InputText('10.10.10.x, 10.10.20.x')],            
             [sg.Submit(), sg.Cancel()]      
@@ -83,7 +83,13 @@ def main():
     window.close() 
     logging.debug(button, values[0], values[1], values[2])
 
-    pack = rdpcap(values[0])
+    for filename in os.listdir(values[0]):
+        if filename.endswith(".pcapng") or filename.endswith(".pcap"): 
+            pack = rdpcap(os.path.join(values[0],filename))
+        else:
+            continue
+
+    
     if values[2] != '10.10.10.x, 10.10.20.x':
         print("Not currently implemented")
     
