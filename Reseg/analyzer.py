@@ -55,13 +55,39 @@ def identify_hosts(packets):
         host_dict[host_ip] = host_info.get_host_traffic()
     return host_dict
 
+def segment_weight_decision(ip_name, pay_percent, pack_percent, pack_dict, total_hits, payload_totals, global_threshold):
+    weighted_pack = (pack_dict['packets']/total_hits[ip_name])*(pack_percent/100)
+    weighted_pay = (pack_dict['payload_size']/payload_totals[ip_name])*(pay_percent/100)
+    return ((weighted_pack+weighted_pay) > (int(global_threshold)/100))
+
+def on_same_subnet(host, client, segment_dict):
+    if client in segment_dict.keys():
+        if segment_dict[client] == host:
+            return True
+    if host in segment_dict.keys():
+        if segment_dict[host] == client:
+            return True
+    host_list = host.split(".")[:-1]
+    client_list = client.split(".")[:-1]
+    match = 0
+    for num in range(0,3):
+        if host_list[num] == client_list[num]:
+            match+=1
+    if match == 3:
+        return True
+    return False
+
+
 def threshold_enforce(traffic_dict, ip_totals, payloads, threshold, slider):
     suggested_seg={}
+    payload_percent=slider
+    packet_percent=100-slider
 
     for name, h_object in traffic_dict.items():
         for ip, packet in h_object.items():
-            if (packet['packets']/ip_totals[name]) > (int(threshold)/100):
-                suggested_seg[name] = ip  
+            if segment_weight_decision(name, payload_percent, packet_percent, packet, ip_totals, payloads, threshold):
+                if not on_same_subnet(name, ip, suggested_seg):
+                    suggested_seg[name] = ip  
 
     
     # for host, client in suggested_seg.items():
@@ -77,8 +103,8 @@ def main():
             [sg.Text('Please enter path of PCAP and any subnets')],      
             [sg.Text('PCAP', size=(15, 1)), sg.InputText('./segmented_pcap')],   
             [sg.Text('Overall Threshold (%)', size=(15, 1)), sg.InputText('50 (default)')], 
-            [sg.Text('Adjust the Slider to Favor Data over Total Packets')],
-            [sg.Slider(range=(1, 100), orientation='h', size=(34, 20), default_value=75)],         
+            [sg.Text('Adjust the Slider to the Right to Favor Data over Total Packets')],
+            [sg.Slider(range=(0, 100), orientation='h', size=(34, 20), default_value=75)],         
             [sg.Submit(), sg.Cancel()]      
             ]      
 
