@@ -3,14 +3,10 @@ import logging
 from scapy.all import *
 import PySimpleGUI as sg 
 from host import HostObject
+from visualizer import draw_graphs
 import pdb
 
 analysis_info = {}
-
-
-## add pysimplegui
-## add subnets
-## add threshold
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -87,18 +83,14 @@ def threshold_enforce(traffic_dict, ip_totals, payloads, threshold, slider):
         for ip, packet in h_object.items():
             if segment_weight_decision(name, payload_percent, packet_percent, packet, ip_totals, payloads, threshold):
                 if not on_same_subnet(name, ip, suggested_seg):
-                    suggested_seg[name] = ip  
-
-    
-    # for host, client in suggested_seg.items():
-    #     print(str(host)+ " suggested to resegement with " + str(client))
-
+                    suggested_seg[name] = ip
     return suggested_seg
 
 
 
 
 def main():
+    visualize_list=[]
     layout = [      
             [sg.Text('Please enter path of PCAP and any subnets')],      
             [sg.Text('PCAP', size=(15, 1)), sg.InputText('./segmented_pcap')],   
@@ -137,6 +129,7 @@ def main():
         total_payload=0
         print(str(name))
         for ip, packet in h_object.items():
+            visualize_list.append(str(name) + " " + str(ip) + " {'weight':"+ str(packet['packets']) + "}")
             print(str(ip) + " : " + str(packet))
             total+=packet['packets']
             total_payload+=packet['payload_size']
@@ -150,6 +143,7 @@ def main():
     for host, client in suggestions.items():
        suggest+=(str(host)+ " suggested to resegement with " + str(client)+ "\n")
     sg.Popup(suggest,title="Results")
+    draw_graphs(visualize_list)
 
 
 if __name__ == "__main__":
