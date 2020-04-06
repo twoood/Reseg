@@ -5,7 +5,7 @@ import networkx as nx
 
 ## add output of image
 
-def draw_graphs(list_edges):
+def draw_graphs(list_edges, write_to_file):
     color_range = len(list_edges)
     with open("./edges", "w+") as f_edge:
         for l_item in list_edges:
@@ -16,7 +16,6 @@ def draw_graphs(list_edges):
     net_graph=nx.parse_edgelist(edge_string, create_using=nx.Graph(), nodetype=str)
 
     pos = nx.spring_layout(net_graph)
-    #import pdb; pdb.set_trace()
     color_range = net_graph.number_of_edges()
     colors = range(color_range)
     options = {
@@ -30,5 +29,6 @@ def draw_graphs(list_edges):
     print(nx.info(net_graph))
 
     nx.draw(net_graph, pos, **options)
-
+    if write_to_file:
+        plt.savefig("Graph.png", format="PNG")
     plt.show()

@@ -97,8 +97,10 @@ def main():
             [sg.Text('Please enter path of PCAP and any subnets')],      
             [sg.Text('PCAP', size=(15, 1)), sg.InputText('./segmented_pcap')],   
             [sg.Text('Overall Threshold (%)', size=(15, 1)), sg.InputText('50 (default)')], 
-            [sg.Text('Adjust the Slider to the Right to Favor Data over Total Packets')],
-            [sg.Slider(range=(0, 100), orientation='h', size=(34, 20), default_value=75)],         
+            [sg.Text('Adjust the Slider to the Favor Packets or Data')],
+            [sg.T("Packets"), sg.Slider(range=(0, 100), orientation='h', size=(34, 20), default_value=50), sg.T("Data"),], 
+            [sg.Checkbox('Generate Diagrams', size=(20, 1))],
+            [sg.Checkbox('Write Results', size=(12, 1))],        
             [sg.Submit(), sg.Cancel()]      
             ]      
 
@@ -106,6 +108,7 @@ def main():
     button, values = window.Read()
     window.close() 
     logging.debug(button, values[0], values[1])
+    pdb.set_trace()
 
     for filename in os.listdir(values[0]):
         if filename.endswith(".pcapng") or filename.endswith(".pcap"): 
@@ -115,37 +118,52 @@ def main():
             continue
 
     threshold = 50
-    slider = 75
+    slider = 50
     if values[1] != '50 (default)':
         threshold = values[1]
     
-    if values[2] != 75:
+    if values[2] != 50:
         slider = values[2]
-
+    save_file = values[4]
     analysis_info = identify_hosts(pack)
 
     ip_totals={}
     payload_totals={}
+    output_string_list=[]
     for name, h_object in analysis_info.items():
         total=0
         total_payload=0
         print(str(name))
+        output_string_list.append(name)
         for ip, packet in h_object.items():
             visualize_list.append(str(name) + " " + str(ip) + " {'weight':"+ str(packet['packets']) + "}")
             print(str(ip) + " : " + str(packet))
+            output_string_list.append(str(ip) + " : " + str(packet))
             total+=packet['packets']
             total_payload+=packet['payload_size']
         ip_totals[name]=total
         payload_totals[name]=total_payload
         print('Total Traffic :  ' + str(total))
+        output_string_list.append('Total Traffic :  ' + str(total))
         print('Total Payload :  ' + str(total_payload) + '\n')
+        output_string_list.append('Total Payload :  ' + str(total_payload) + '\n')
     suggestions={}
     suggestions=threshold_enforce(analysis_info, ip_totals, payload_totals, threshold, slider)
-    suggest="With a threshold of " + str(threshold) + "%\n\n"
+    suggest="With a threshold of " + str(threshold) + "%\n"
+    suggest+="Favoring " + str(slider) + "% of total payloads and " + str(100-slider) + "% of total packets.\n\n"
     for host, client in suggestions.items():
        suggest+=(str(host)+ " suggested to resegement with " + str(client)+ "\n")
     sg.Popup(suggest,title="Results")
-    draw_graphs(visualize_list)
+    if values[3]:
+        draw_graphs(visualize_list, save_file)
+    if save_file:
+        with open("Segmentation_Stats.txt", "w+") as seg_stats:
+            for info in output_string_list:
+                seg_stats.write(info + "\n")
+            seg_stats.write(suggest)
+
+
+        
 
 
 if __name__ == "__main__":
