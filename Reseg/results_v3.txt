@@ -1,0 +1,85 @@
+10.10.10.11
+224.0.0.251 : {'packets': 71, 'payload_size': 4828}
+10.10.10.10 : {'packets': 1866, 'payload_size': 87398}
+10.10.10.12 : {'packets': 2896, 'payload_size': 134778}
+10.10.10.13 : {'packets': 3521, 'payload_size': 163528}
+10.10.11.10 : {'packets': 3836, 'payload_size': 178018}
+10.10.11.11 : {'packets': 4807, 'payload_size': 222684}
+10.10.11.12 : {'packets': 5743, 'payload_size': 265740}
+10.10.11.13 : {'packets': 5830, 'payload_size': 269742}
+Total Traffic :  28570
+Total Payload :  1326716
+
+10.10.10.12
+224.0.0.251 : {'packets': 66, 'payload_size': 4488}
+10.10.10.10 : {'packets': 971, 'payload_size': 46118}
+10.10.11.10 : {'packets': 1889, 'payload_size': 88346}
+10.10.10.11 : {'packets': 3163, 'payload_size': 661062}
+10.10.11.13 : {'packets': 4126, 'payload_size': 705360}
+10.10.11.12 : {'packets': 4409, 'payload_size': 718378}
+10.10.11.11 : {'packets': 5229, 'payload_size': 756098}
+10.10.10.13 : {'packets': 5812, 'payload_size': 782916}
+Total Traffic :  25665
+Total Payload :  3762766
+
+10.10.10.10
+224.0.0.251 : {'packets': 64, 'payload_size': 4323}
+10.10.11.10 : {'packets': 1136, 'payload_size': 53635}
+10.10.10.11 : {'packets': 3136, 'payload_size': 915303}
+10.10.11.11 : {'packets': 3866, 'payload_size': 948883}
+10.10.10.12 : {'packets': 4928, 'payload_size': 997735}
+10.10.11.13 : {'packets': 5586, 'payload_size': 1028003}
+10.10.11.12 : {'packets': 6278, 'payload_size': 1059835}
+10.10.10.13 : {'packets': 6563, 'payload_size': 1072945}
+Total Traffic :  31557
+Total Payload :  6080662
+
+10.10.10.13
+224.0.0.251 : {'packets': 69, 'payload_size': 4682}
+10.10.11.12 : {'packets': 129, 'payload_size': 7442}
+10.10.11.10 : {'packets': 330, 'payload_size': 16688}
+10.10.10.11 : {'packets': 1236, 'payload_size': 263945}
+10.10.10.12 : {'packets': 2201, 'payload_size': 308335}
+10.10.11.13 : {'packets': 2697, 'payload_size': 331151}
+10.10.11.11 : {'packets': 3444, 'payload_size': 365513}
+10.10.10.10 : {'packets': 3650, 'payload_size': 374989}
+Total Traffic :  13756
+Total Payload :  1672745
+
+10.10.11.12
+10.10.10.13 : {'packets': 53, 'payload_size': 2438}
+10.10.10.12 : {'packets': 782, 'payload_size': 35972}
+10.10.10.10 : {'packets': 1636, 'payload_size': 75256}
+10.10.10.11 : {'packets': 2842, 'payload_size': 675472}
+Total Traffic :  5313
+Total Payload :  789138
+
+10.10.11.10
+10.10.10.10 : {'packets': 970, 'payload_size': 44620}
+10.10.10.12 : {'packets': 1275, 'payload_size': 58650}
+10.10.10.13 : {'packets': 2084, 'payload_size': 95864}
+10.10.10.11 : {'packets': 2638, 'payload_size': 309689}
+Total Traffic :  6967
+Total Payload :  508823
+
+10.10.11.11
+10.10.10.10 : {'packets': 667, 'payload_size': 30682}
+10.10.10.12 : {'packets': 1709, 'payload_size': 78614}
+10.10.10.11 : {'packets': 3618, 'payload_size': 166428}
+10.10.10.13 : {'packets': 4033, 'payload_size': 185518}
+Total Traffic :  10027
+Total Payload :  461242
+
+10.10.11.13
+10.10.10.12 : {'packets': 1023, 'payload_size': 47058}
+10.10.10.10 : {'packets': 2838, 'payload_size': 130548}
+10.10.10.13 : {'packets': 3187, 'payload_size': 146602}
+10.10.10.11 : {'packets': 3324, 'payload_size': 206561}
+Total Traffic :  10372
+Total Payload :  530769
+
+Name: 
+Type: Graph
+Number of nodes: 9
+Number of edges: 26
+Average degree:   5.7778

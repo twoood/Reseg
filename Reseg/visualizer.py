@@ -3,12 +3,13 @@ import networkx as nx
 
 
 
+## add output of image
 
 def draw_graphs(list_edges):
     color_range = len(list_edges)
     with open("./edges", "w+") as f_edge:
         for l_item in list_edges:
-            f_edge.write(l_item)
+            f_edge.write(l_item+"\n")
     edge_string=list_edges
     #["10.10.10.10 10.10.10.11 {'weight':3}","10.10.10.10 10.10.10.12 {'weight':7}"]
 

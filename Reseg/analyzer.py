@@ -10,6 +10,8 @@ analysis_info = {}
 
 logging.basicConfig(level=logging.WARNING)
 
+## spit stats into output file
+
 def identify_hosts(packets):
     unique_hosts = []
     host_information = {}
