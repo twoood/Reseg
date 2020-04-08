@@ -1,0 +1,97 @@
+10.10.11.10
+224.0.0.251 : {'packets': 15, 'payload_size': 1070}
+10.10.10.12 : {'packets': 9333, 'payload_size': 429698}
+10.10.10.11 : {'packets': 16394, 'payload_size': 4122785}
+10.10.11.11 : {'packets': 21001, 'payload_size': 4334707}
+10.10.11.13 : {'packets': 27819, 'payload_size': 4648335}
+10.10.11.12 : {'packets': 30140, 'payload_size': 4755101}
+10.10.10.10 : {'packets': 36869, 'payload_size': 5064635}
+10.10.10.13 : {'packets': 37761, 'payload_size': 5105667}
+Total Traffic :  179332
+Total Payload :  28461998
+
+10.10.11.11
+224.0.0.251 : {'packets': 11, 'payload_size': 803}
+10.10.11.10 : {'packets': 6127, 'payload_size': 282139}
+10.10.10.11 : {'packets': 34263, 'payload_size': 1576395}
+10.10.11.13 : {'packets': 37676, 'payload_size': 1733393}
+10.10.11.12 : {'packets': 43223, 'payload_size': 1988555}
+10.10.10.12 : {'packets': 47343, 'payload_size': 2178075}
+10.10.10.13 : {'packets': 48043, 'payload_size': 2210275}
+10.10.10.10 : {'packets': 49116, 'payload_size': 2259633}
+Total Traffic :  265802
+Total Payload :  12229268
+
+10.10.11.13
+224.0.0.251 : {'packets': 6, 'payload_size': 438}
+10.10.10.10 : {'packets': 15685, 'payload_size': 721672}
+10.10.10.12 : {'packets': 26691, 'payload_size': 1227948}
+10.10.10.11 : {'packets': 26818, 'payload_size': 1295889}
+10.10.10.13 : {'packets': 31648, 'payload_size': 1518069}
+10.10.11.10 : {'packets': 35045, 'payload_size': 1674331}
+10.10.11.11 : {'packets': 36414, 'payload_size': 1737305}
+10.10.11.12 : {'packets': 41137, 'payload_size': 1954563}
+Total Traffic :  213444
+Total Payload :  10130215
+
+10.10.11.12
+224.0.0.251 : {'packets': 5, 'payload_size': 365}
+10.10.10.12 : {'packets': 8522, 'payload_size': 392147}
+10.10.10.11 : {'packets': 23611, 'payload_size': 4071513}
+10.10.11.10 : {'packets': 29298, 'payload_size': 4333115}
+10.10.11.11 : {'packets': 31142, 'payload_size': 4417939}
+10.10.10.13 : {'packets': 34105, 'payload_size': 4554237}
+10.10.10.10 : {'packets': 38502, 'payload_size': 4756499}
+10.10.11.13 : {'packets': 44627, 'payload_size': 5038249}
+Total Traffic :  209812
+Total Payload :  27564064
+
+10.10.10.12
+10.10.11.10 : {'packets': 10267, 'payload_size': 472282}
+10.10.11.12 : {'packets': 15780, 'payload_size': 725880}
+10.10.11.13 : {'packets': 25507, 'payload_size': 1173322}
+10.10.11.11 : {'packets': 30278, 'payload_size': 1392788}
+10.10.10.10 : {'packets': 40365, 'payload_size': 1856790}
+10.10.10.11 : {'packets': 55784, 'payload_size': 5348096}
+10.10.10.13 : {'packets': 64009, 'payload_size': 5726446}
+Total Traffic :  241990
+Total Payload :  16695604
+
+10.10.10.11
+10.10.11.10 : {'packets': 3243, 'payload_size': 149178}
+10.10.11.11 : {'packets': 9959, 'payload_size': 458114}
+10.10.11.13 : {'packets': 9960, 'payload_size': 458160}
+10.10.11.12 : {'packets': 13843, 'payload_size': 636778}
+224.0.0.251 : {'packets': 13915, 'payload_size': 641679}
+10.10.10.13 : {'packets': 22939, 'payload_size': 1056783}
+10.10.10.10 : {'packets': 23888, 'payload_size': 1100437}
+10.10.10.12 : {'packets': 34027, 'payload_size': 1566831}
+Total Traffic :  131774
+Total Payload :  6067960
+
+10.10.10.10
+10.10.11.13 : {'packets': 2069, 'payload_size': 95174}
+10.10.11.11 : {'packets': 6279, 'payload_size': 288834}
+10.10.11.12 : {'packets': 9510, 'payload_size': 437460}
+10.10.11.10 : {'packets': 9910, 'payload_size': 455860}
+224.0.0.251 : {'packets': 9915, 'payload_size': 456225}
+10.10.10.13 : {'packets': 28743, 'payload_size': 1322313}
+10.10.10.11 : {'packets': 30033, 'payload_size': 1991030}
+10.10.10.12 : {'packets': 41672, 'payload_size': 2526424}
+Total Traffic :  138131
+Total Payload :  7573320
+
+10.10.10.13
+10.10.11.12 : {'packets': 3951, 'payload_size': 181746}
+10.10.11.13 : {'packets': 9827, 'payload_size': 452042}
+10.10.11.11 : {'packets': 10068, 'payload_size': 463128}
+10.10.11.10 : {'packets': 11663, 'payload_size': 536498}
+10.10.10.10 : {'packets': 28884, 'payload_size': 1328664}
+10.10.10.11 : {'packets': 38021, 'payload_size': 5432895}
+10.10.10.12 : {'packets': 44232, 'payload_size': 5718601}
+Total Traffic :  146646
+Total Payload :  14113574
+
+With a threshold of 25%
+Favoring 53.0% of total payloads and 47.0% of total packets.
+

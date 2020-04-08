@@ -1,0 +1,86 @@
+10.10.10.11
+224.0.0.251 : {'packets': 71, 'payload_size': 4828}
+10.10.11.10 : {'packets': 1776, 'payload_size': 83258}
+10.10.11.11 : {'packets': 5103, 'payload_size': 236300}
+10.10.10.13 : {'packets': 14127, 'payload_size': 651404}
+10.10.10.10 : {'packets': 15076, 'payload_size': 695058}
+10.10.10.12 : {'packets': 25215, 'payload_size': 1161452}
+10.10.11.12 : {'packets': 27225, 'payload_size': 1253912}
+Total Traffic :  88593
+Total Payload :  4086212
+
+10.10.10.10
+224.0.0.251 : {'packets': 4, 'payload_size': 292}
+10.10.10.13 : {'packets': 18832, 'payload_size': 866380}
+10.10.10.11 : {'packets': 20122, 'payload_size': 1535097}
+10.10.11.13 : {'packets': 21334, 'payload_size': 1590849}
+10.10.10.12 : {'packets': 32973, 'payload_size': 2126243}
+10.10.11.11 : {'packets': 35638, 'payload_size': 2248833}
+10.10.11.12 : {'packets': 37662, 'payload_size': 2341937}
+10.10.11.10 : {'packets': 37894, 'payload_size': 2352609}
+Total Traffic :  204459
+Total Payload :  13062240
+
+10.10.10.13
+10.10.10.10 : {'packets': 17220, 'payload_size': 792120}
+10.10.10.11 : {'packets': 26357, 'payload_size': 4896351}
+10.10.11.12 : {'packets': 28140, 'payload_size': 4978369}
+10.10.11.13 : {'packets': 30935, 'payload_size': 5106939}
+10.10.11.11 : {'packets': 31081, 'payload_size': 5113655}
+10.10.11.10 : {'packets': 31906, 'payload_size': 5151605}
+10.10.10.12 : {'packets': 38117, 'payload_size': 5437311}
+Total Traffic :  203756
+Total Payload :  31476350
+
+10.10.11.10
+10.10.10.12 : {'packets': 3827, 'payload_size': 176042}
+10.10.10.11 : {'packets': 6345, 'payload_size': 1510396}
+10.10.10.10 : {'packets': 8813, 'payload_size': 1623924}
+10.10.10.13 : {'packets': 9124, 'payload_size': 1638230}
+Total Traffic :  28109
+Total Payload :  4948592
+
+10.10.10.12
+10.10.11.10 : {'packets': 5754, 'payload_size': 264684}
+10.10.11.12 : {'packets': 8482, 'payload_size': 390172}
+10.10.10.10 : {'packets': 18569, 'payload_size': 854174}
+10.10.11.13 : {'packets': 23163, 'payload_size': 1065498}
+10.10.10.11 : {'packets': 38582, 'payload_size': 4556804}
+10.10.11.11 : {'packets': 41273, 'payload_size': 4680590}
+10.10.10.13 : {'packets': 49498, 'payload_size': 5058940}
+Total Traffic :  185321
+Total Payload :  16870862
+
+10.10.11.12
+10.10.10.12 : {'packets': 4100, 'payload_size': 188600}
+10.10.10.11 : {'packets': 8622, 'payload_size': 1121517}
+10.10.10.13 : {'packets': 9910, 'payload_size': 1180765}
+10.10.10.10 : {'packets': 11625, 'payload_size': 1259655}
+Total Traffic :  34257
+Total Payload :  3750537
+
+10.10.11.13
+10.10.10.10 : {'packets': 4771, 'payload_size': 219466}
+10.10.10.12 : {'packets': 9559, 'payload_size': 439714}
+10.10.10.11 : {'packets': 9595, 'payload_size': 453706}
+10.10.10.13 : {'packets': 11255, 'payload_size': 530066}
+Total Traffic :  35180
+Total Payload :  1642952
+
+10.10.11.11
+10.10.10.11 : {'packets': 8948, 'payload_size': 411608}
+10.10.10.12 : {'packets': 10450, 'payload_size': 480700}
+10.10.10.13 : {'packets': 10690, 'payload_size': 491740}
+10.10.10.10 : {'packets': 11086, 'payload_size': 509956}
+Total Traffic :  41174
+Total Payload :  1894004
+
+With a threshold of 25%
+Favoring 53.0% of total payloads and 47.0% of total packets.
+
+10.10.10.11 suggested to resegement with 10.10.11.12
+10.10.11.10 suggested to resegement with 10.10.10.13
+10.10.10.12 suggested to resegement with 10.10.11.11
+10.10.11.12 suggested to resegement with 10.10.10.10
+10.10.11.13 suggested to resegement with 10.10.10.13
+10.10.11.11 suggested to resegement with 10.10.10.10

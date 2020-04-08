@@ -10,20 +10,19 @@ analysis_info = {}
 
 logging.basicConfig(level=logging.WARNING)
 
-## spit stats into output file
+## %ages leaving own subnet 
 
-def identify_hosts(packets):
+def identify_hosts(packet_list):
+    
     unique_hosts = []
     host_information = {}
-    for packet in packets:
-        # pdb.set_trace()
-        try:
-            if packet.type == 2048:
-                if packet['IP'].src not in unique_hosts:
-                    unique_hosts.append(packet['IP'].src)
-                    
-                    host_information[packet['IP'].src] = HostObject(packet["IP"].src)
-                else:
+    for packets in packet_list:
+        for packet in packets:
+            try:
+                if packet.type == 2048:
+                    if packet['IP'].src not in unique_hosts:
+                        unique_hosts.append(packet['IP'].src)
+                        host_information[packet['IP'].src] = HostObject(packet["IP"].src)
                     port = 0
                     if packet['IP'].proto == 6:
                         port = packet['IP']['TCP'].dport
@@ -35,19 +34,19 @@ def identify_hosts(packets):
                         logging.warning("Unknown protocol")
                     host_information[packet['IP'].src].add_egress(packet['IP'].dst, port, len(packet.payload))
 
-            elif packet.type == 34525:
-                logging.debug("IPv6 packet")
-            elif packet.type == 2054:
-                logging.debug("ARP packet")
-            elif packet.type == 36864:
-                logging.debug("Loopback packet")
-            elif packet.type == 24578:
-                logging.debug("DEC MOP Remote Console packet")
-            else:
-                logging.warning(str(packet.type) + " not recognized")
-        except Exception as e:
-            print("Exception " + str(e))
-            
+                elif packet.type == 34525:
+                    logging.debug("IPv6 packet")
+                elif packet.type == 2054:
+                    logging.debug("ARP packet")
+                elif packet.type == 36864:
+                    logging.debug("Loopback packet")
+                elif packet.type == 24578:
+                    logging.debug("DEC MOP Remote Console packet")
+                else:
+                    logging.warning(str(packet.type) + " not recognized")
+            except Exception as e:
+                pdb.set_trace()
+                print("Exception " + str(e))              
     host_dict = {}
     for host_ip, host_info in host_information.items():
         host_dict[host_ip] = host_info.get_host_traffic()
@@ -75,17 +74,25 @@ def on_same_subnet(host, client, segment_dict):
         return True
     return False
 
+def if_already_suggested(host_name, subnet_name):
+    print(host_name)
 
-def threshold_enforce(traffic_dict, ip_totals, payloads, threshold, slider):
+def threshold_enforce(traffic_dict, ip_totals, payloads, threshold, slider, seg_enforce):
     suggested_seg={}
     payload_percent=slider
     packet_percent=100-slider
-
     for name, h_object in traffic_dict.items():
+        out_of_subnet={"packets":0,"payload_size":0}
         for ip, packet in h_object.items():
+            if name.split('.')[:-1] != ip.split('.')[:-1] and name.split('.')[:-2] == ip.split('.')[:-2]:
+                out_of_band_name='.'.join(ip.split('.')[:-1])+".x"
+                out_of_subnet['packets']+=packet['packets']
+                out_of_subnet['payload_size']+=packet['payload_size']
             if segment_weight_decision(name, payload_percent, packet_percent, packet, ip_totals, payloads, threshold):
-                if not on_same_subnet(name, ip, suggested_seg):
+                if not on_same_subnet(name, ip, suggested_seg) and ip != '224.0.0.251':
                     suggested_seg[name] = ip
+        if seg_enforce and segment_weight_decision(name, payload_percent, packet_percent, out_of_subnet, ip_totals, payloads, threshold):
+            suggested_seg[name] = out_of_band_name + " subnet"
     return suggested_seg
 
 
@@ -99,6 +106,7 @@ def main():
             [sg.Text('Overall Threshold (%)', size=(15, 1)), sg.InputText('50 (default)')], 
             [sg.Text('Adjust the Slider to the Favor Packets or Data')],
             [sg.T("Packets"), sg.Slider(range=(0, 100), orientation='h', size=(34, 20), default_value=50), sg.T("Data"),], 
+            [sg.Checkbox('Enforce on Whole Subnets', size=(30, 1))],
             [sg.Checkbox('Generate Diagrams', size=(20, 1))],
             [sg.Checkbox('Write Results', size=(12, 1))],        
             [sg.Submit(), sg.Cancel()]      
@@ -108,11 +116,11 @@ def main():
     button, values = window.Read()
     window.close() 
     logging.debug(button, values[0], values[1])
-    pdb.set_trace()
-
+    pack=[]
     for filename in os.listdir(values[0]):
         if filename.endswith(".pcapng") or filename.endswith(".pcap"): 
-            pack = rdpcap(os.path.join(values[0],filename))
+            print("Found PCAP File: "+ str(filename))
+            pack.append(rdpcap(os.path.join(values[0],filename)))
             logging.debug("Pcap file found:" + str(filename))
         else:
             continue
@@ -121,11 +129,16 @@ def main():
     slider = 50
     if values[1] != '50 (default)':
         threshold = values[1]
-    
+    ############
+    #threshold = 25
+    ############
     if values[2] != 50:
         slider = values[2]
-    save_file = values[4]
+    segment_enforcement = values[3]
+    diagrams = values[4]
+    save_file = values[5]
     analysis_info = identify_hosts(pack)
+
 
     ip_totals={}
     payload_totals={}
@@ -133,9 +146,14 @@ def main():
     for name, h_object in analysis_info.items():
         total=0
         total_payload=0
+        out_of_bounds_packets=0
+        out_of_bounds_payloads=0
         print(str(name))
         output_string_list.append(name)
         for ip, packet in h_object.items():
+            if name.split('.')[:-1] != ip.split('.')[:-1] and name.split('.')[:-2] == ip.split('.')[:-2]:
+                out_of_bounds_packets+=packet['packets']
+                out_of_bounds_payloads+=packet['payload_size']
             visualize_list.append(str(name) + " " + str(ip) + " {'weight':"+ str(packet['packets']) + "}")
             print(str(ip) + " : " + str(packet))
             output_string_list.append(str(ip) + " : " + str(packet))
@@ -143,18 +161,25 @@ def main():
             total_payload+=packet['payload_size']
         ip_totals[name]=total
         payload_totals[name]=total_payload
+        oob_packs = round((out_of_bounds_packets/total)*100, 2)
+        oob_pay = round((out_of_bounds_payloads/total_payload)*100, 2)
         print('Total Traffic :  ' + str(total))
         output_string_list.append('Total Traffic :  ' + str(total))
         print('Total Payload :  ' + str(total_payload) + '\n')
-        output_string_list.append('Total Payload :  ' + str(total_payload) + '\n')
+        output_string_list.append('Total Payload :  ' + str(total_payload))
+        print('Percent out of subnet traffic :  ' + str(oob_packs) + '%')
+        output_string_list.append('Percent out of subnet traffic :  ' + str(oob_packs) + '%')
+        print('Percent out of subnet payloads :  ' + str(oob_pay) + '%\n')
+        output_string_list.append('Percent out of subnet payloads :  ' + str(oob_pay) + '%\n\n')
+    
     suggestions={}
-    suggestions=threshold_enforce(analysis_info, ip_totals, payload_totals, threshold, slider)
+    suggestions=threshold_enforce(analysis_info, ip_totals, payload_totals, threshold, slider, segment_enforcement)
     suggest="With a threshold of " + str(threshold) + "%\n"
     suggest+="Favoring " + str(slider) + "% of total payloads and " + str(100-slider) + "% of total packets.\n\n"
     for host, client in suggestions.items():
        suggest+=(str(host)+ " suggested to resegement with " + str(client)+ "\n")
     sg.Popup(suggest,title="Results")
-    if values[3]:
+    if diagrams:
         draw_graphs(visualize_list, save_file)
     if save_file:
         with open("Segmentation_Stats.txt", "w+") as seg_stats:

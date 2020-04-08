@@ -1,0 +1,108 @@
+10.10.11.11
+10.10.11.12 : {'packets': 6422, 'payload_size': 432027}
+10.10.10.13 : {'packets': 16829, 'payload_size': 1599134}
+10.10.11.10 : {'packets': 19316, 'payload_size': 1807274}
+10.10.10.12 : {'packets': 21343, 'payload_size': 2256508}
+10.10.10.10 : {'packets': 23419, 'payload_size': 2477689}
+10.10.11.13 : {'packets': 33324, 'payload_size': 3171449}
+224.0.0.251 : {'packets': 33325, 'payload_size': 3171522}
+Total Traffic :  153978
+Total Payload :  14915603
+Percent out of subnet traffic :  40.0%
+Percent out of subnet payloads :  42.46%
+
+
+10.10.11.12
+10.10.11.11 : {'packets': 6218, 'payload_size': 630568}
+10.10.11.13 : {'packets': 12205, 'payload_size': 1041673}
+10.10.10.10 : {'packets': 25830, 'payload_size': 4787283}
+10.10.10.12 : {'packets': 35941, 'payload_size': 8613251}
+10.10.10.13 : {'packets': 47023, 'payload_size': 9177875}
+10.10.11.10 : {'packets': 55619, 'payload_size': 9907034}
+Total Traffic :  182836
+Total Payload :  34157684
+Percent out of subnet traffic :  59.5%
+Percent out of subnet payloads :  66.1%
+
+
+10.10.11.10
+10.10.10.12 : {'packets': 16930, 'payload_size': 1654432}
+10.10.11.13 : {'packets': 20762, 'payload_size': 2563086}
+10.10.10.13 : {'packets': 25144, 'payload_size': 2782958}
+10.10.10.10 : {'packets': 28220, 'payload_size': 2984498}
+10.10.11.11 : {'packets': 30481, 'payload_size': 3523528}
+10.10.11.12 : {'packets': 36758, 'payload_size': 3812270}
+Total Traffic :  158295
+Total Payload :  17320772
+Percent out of subnet traffic :  44.41%
+Percent out of subnet payloads :  42.85%
+
+
+10.10.10.12
+10.10.11.10 : {'packets': 19374, 'payload_size': 1004727}
+10.10.11.11 : {'packets': 34116, 'payload_size': 2265979}
+10.10.11.13 : {'packets': 36472, 'payload_size': 2592308}
+10.10.11.12 : {'packets': 45061, 'payload_size': 2998370}
+10.10.10.10 : {'packets': 51433, 'payload_size': 3389330}
+10.10.10.13 : {'packets': 66407, 'payload_size': 4404001}
+224.0.0.251 : {'packets': 66408, 'payload_size': 4404074}
+Total Traffic :  319271
+Total Payload :  21058789
+Percent out of subnet traffic :  42.29%
+Percent out of subnet payloads :  42.08%
+
+
+10.10.11.13
+10.10.11.10 : {'packets': 3890, 'payload_size': 237316}
+10.10.11.12 : {'packets': 8572, 'payload_size': 452688}
+10.10.10.12 : {'packets': 13176, 'payload_size': 664472}
+10.10.10.13 : {'packets': 19916, 'payload_size': 1099832}
+10.10.11.11 : {'packets': 25495, 'payload_size': 1366816}
+10.10.10.10 : {'packets': 29902, 'payload_size': 2487016}
+Total Traffic :  100951
+Total Payload :  6308140
+Percent out of subnet traffic :  62.4%
+Percent out of subnet payloads :  67.39%
+
+
+10.10.10.13
+10.10.11.10 : {'packets': 11177, 'payload_size': 514142}
+10.10.11.13 : {'packets': 22670, 'payload_size': 1895486}
+10.10.11.11 : {'packets': 27448, 'payload_size': 3468172}
+10.10.11.12 : {'packets': 55047, 'payload_size': 5260380}
+10.10.10.10 : {'packets': 61095, 'payload_size': 5700113}
+10.10.10.12 : {'packets': 76226, 'payload_size': 7618592}
+224.0.0.251 : {'packets': 76227, 'payload_size': 7618665}
+Total Traffic :  329890
+Total Payload :  32075550
+Percent out of subnet traffic :  35.27%
+Percent out of subnet payloads :  34.72%
+
+
+10.10.10.10
+10.10.11.12 : {'packets': 11567, 'payload_size': 1346924}
+10.10.11.10 : {'packets': 13463, 'payload_size': 1524015}
+10.10.11.11 : {'packets': 19120, 'payload_size': 2077824}
+10.10.11.13 : {'packets': 24440, 'payload_size': 2854277}
+10.10.10.12 : {'packets': 31855, 'payload_size': 4161844}
+10.10.10.13 : {'packets': 40821, 'payload_size': 4659796}
+224.0.0.251 : {'packets': 40828, 'payload_size': 4660307}
+Total Traffic :  182094
+Total Payload :  21284987
+Percent out of subnet traffic :  37.67%
+Percent out of subnet payloads :  36.66%
+
+
+10.10.10.11
+224.0.0.251 : {'packets': 7, 'payload_size': 511}
+Total Traffic :  7
+Total Payload :  511
+Percent out of subnet traffic :  0.0%
+Percent out of subnet payloads :  0.0%
+
+
+With a threshold of 50%
+Favoring 50% of total payloads and 50% of total packets.
+
+10.10.11.12 suggested to resegement with 10.10.10.x subnet
+10.10.11.13 suggested to resegement with 10.10.10.x subnet
